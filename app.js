@@ -1,6 +1,7 @@
 
 // CaféWorld – Simulador Interactivo
-// 1. Definición de arrays para menú y extras
+
+// Arrays
 const bebidas = [
   { nombre: 'Café solo', precio: 50 },
   { nombre: 'Capuccino', precio: 70 },
@@ -13,25 +14,19 @@ const extrasList = [
   'Crema batida'
 ];
 
-// 2. Clave y array de carrito
 const CART_KEY = 'cafeworld_cart';
 let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
 
-// 3. Elementos del DOM
+// Elementos del DOM
 const form = document.getElementById('form-pedido');
 const selectBebida = form.querySelector('#bebida');
 const fieldsetExtras = form.querySelector('fieldset');
 const cartTableBody = document.querySelector('#cart-table tbody');
 const clearBtn = document.getElementById('clear-cart');
 
-/**
- * 4. Población dinámica del formulario usando arrays
- */
 function populateForm() {
-  // limpia antes de crear
   fieldsetExtras.innerHTML = '<legend>Extras ($10 c/u)</legend>';
 
-  // luego re-crea los checkboxes
   extrasList.forEach(extra => {
     const label = document.createElement('label');
     const chk   = document.createElement('input');
@@ -55,9 +50,6 @@ function populateForm() {
     fieldsetExtras.appendChild(label);
   });
 
-/**
- * 5. Renderizado del carrito en el DOM
- */
 function renderCart() {
   cartTableBody.innerHTML = '';
   cart.forEach(item => {
@@ -72,9 +64,7 @@ function renderCart() {
   });
 }
 
-/**
- * 6. Guardar carrito en LocalStorage
- */
+/* Guardar carrito en LocalStorage */
 function saveCart() {
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
 }
@@ -86,9 +76,8 @@ function calcularTotal(item) {
   return item.precio * item.cantidad + item.extras.length * 10;
 }
 
-/**
- * 8. Eventos
- */
+/* Eventos */
+
 // Al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
   populateForm();
